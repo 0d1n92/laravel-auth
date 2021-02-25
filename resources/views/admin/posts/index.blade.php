@@ -3,47 +3,35 @@
     
 @endsection
 @section('content_main')
-@section('content')
+
 @if (session('status'))
     <div class="container alert alert-success">
         {{ session('status') }}
     </div>
 @endif
   <table class="table table-dark">
- {{--    <thead>
+ <thead>
       <tr>
           @foreach ($posts->toArray()[0] as $key=>$value )
-            <th>{{$key}}</th>
+            @if($key!="user_id")
+              <th>{{$key}}</th>
+            @endif  
           @endforeach
           <th></th>
           <th></th> 
-      </tr> --}}
+      </tr> 
     </thead>
     <tbody>
-      @foreach ($posts as $post )
+    @foreach ($posts as $post )
       <tr>
         @foreach ($post->getAttributes() as  $key=>$value)
-          @if($key!="img_path")
+        @if($key!="user_id")
           <th>{{$value}}</th>
-          @else
-            <th><img src="{{$value}}" alt="pippo"></th>
-          @endif
-           
-        
-        @endforeach
-        {{-- <th><a class="btn btn-primary" href="{{route("admin.posts.show", $post->id)}}">Show</a></th>
-        
-         <th><a class="btn btn-primary" href="{{route("admin.posts.edit", $post->id)}}">Modifica</a></th> --}}
-     {{--    <th>
-            <form action="{{route('admin.post.destroy', $post->id )}}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-danger">Cancella</button>
-            </form>
-          </th> --}}
-          
+        @endif  
+       @endforeach     
         </tr>
-      @endforeach
+     @endforeach      
+     
     
     </tbody>      
   </table>

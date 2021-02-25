@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
+
 
 class PostController extends Controller
 {
@@ -27,6 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
+
         return view('admin.posts.create');
     }
 
@@ -38,7 +41,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->all();
+    
+        $request->validate([
+            'title' => 'required | max:100',
+            'text' => 'required'
+            ]);
+
+        $data["slug"]=Str::slug($data["title"]);
+        $data["user_id"]=Auth::id();
+        
+        $newPosts= new Post();
+        $newPosts->fill($data);
+        $newPosts->save();
+        return redirect()->route('admin.posts.index')->with('status',"post ".$newPosts->title ." aggiunto correttamente");;
     }
 
     /**

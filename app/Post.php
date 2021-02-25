@@ -9,4 +9,12 @@ class Post extends Model
     public function user() {
       belongsTo('App\User');
     }
+
+     protected $fillable=[
+        'text',
+        'title',
+        'slug',
+        'user_id',
+      
+      ];
 }
