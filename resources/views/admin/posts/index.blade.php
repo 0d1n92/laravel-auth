@@ -10,12 +10,12 @@
     <thead>
         <tr>
 
-          @foreach ($posts->toArray()[0] as $key=>$value )
-            @if($key!="user_id")
-              <th>{{$key}}</th>
-            @endif  
-          @endforeach
-
+          <th>id</th>
+          
+          <th>text</th>
+          <th>title</th>
+          <th>creato</th>
+          <th>aggiornato</th>
           <th></th>
           <th></th> 
 
@@ -26,7 +26,7 @@
         @foreach ($posts as $post )
         <tr>
           @foreach ($post->getAttributes() as  $key=>$value)
-            @if($key!="user_id")
+            @if($key!="user_id" && $key!="slug")
               <th>{{$value}}</th>
             @endif  
           @endforeach
