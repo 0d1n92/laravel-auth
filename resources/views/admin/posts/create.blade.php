@@ -1,5 +1,5 @@
-@extends('admin.posts.layouts.layout')
-@section('content_main')
+@extends('layouts.app')
+@section('content')
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -16,11 +16,13 @@
       <label for="title"></label>
       <input type="text" name ="title" id="title" class="form-control" value="{{old('title')}}" placeholder="title">
     </div>
-     <div class="form-group">
-      <label for="text"></label>
-      <textarea class="form-controll" name ="text" id="text" cols="30" rows="10">{{old('text')}}</textarea>
+    <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">With textarea</span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <textarea class="form-control"  name ="text" id="text" aria-label="scrivi texsto">{{old('text')}}</textarea>
+    </div>
+    <button type="submit" class="mt-5 btn btn-primary">Submit</button>
 </form>
     
 @endsection
