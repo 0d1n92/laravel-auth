@@ -10,7 +10,7 @@
         </ul>
     </div>
   @endif
-   <form  class="container" action="{{route('admin.posts.store')}}" method="post">
+   <form  class="container" action="{{route('admin.posts.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('POST')
     <div class="form-group">
@@ -23,6 +23,10 @@
     </div>
       <textarea class="form-control" rows="10" cols="50" name ="text" id="text" aria-label="scrivi testo">{{old('text')}}</textarea>
     </div>
+    <div class="form-group">
+    <label for="img_post">Example file input</label>
+      <input type="file" name="img_post" id="img_post" class="form-control-file" accept="image/*" >
+  </div>
     <button type="submit" class="mt-3 btn btn-success">Submit</button>
     
 </form>

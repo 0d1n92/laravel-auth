@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\User;
 
@@ -48,12 +49,15 @@ class PostController extends Controller
     {
         $data=$request->all();
     
-        $request->validate($this->validate);
+        $request->validate($this->ValidateData);
 
         $data["slug"]=Str::slug($data["title"]);
         $data["user_id"]=Auth::id();
         $data["pubblication_date"]= date('Y-m-d');
-        
+        if (!empty($data["img_post"])){
+        $data["img_post"]=Storage::disk('public')->put('images',$data["img_post"]);
+        }
+
         $newPosts= new Post();
         $newPosts->fill($data);
         $newPosts->save();

@@ -17,6 +17,7 @@ class Post extends Model
         'subtitle',
         'pubblication_date',
         'slug', 
+        'img_post',
       ];
 
       public function InfoUser(){
