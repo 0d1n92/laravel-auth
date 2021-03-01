@@ -16,6 +16,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $ValidateData= [
+        'title'=> 'required | max:150',
+        'text'=> 'required',
+    ];
+
     public function index()
     {
         $posts=Post::where('user_id',Auth::id())->get();
@@ -43,10 +48,7 @@ class PostController extends Controller
     {
         $data=$request->all();
     
-        $request->validate([
-            'title' => 'required | max:100',
-            'text' => 'required'
-            ]);
+        $request->validate($this->validate);
 
         $data["slug"]=Str::slug($data["title"]);
         $data["user_id"]=Auth::id();
