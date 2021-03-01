@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\User;
-
+use App\Mail\BlogMail;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -60,8 +61,12 @@ class PostController extends Controller
 
         $newPosts= new Post();
         $newPosts->fill($data);
-        $newPosts->save();
+        $saved=$newPosts->save();
+      
+        Mail::to('rombaldonienrico@gmail.com')->send(new BlogMail());
+        
         return redirect()->route('admin.posts.index')->with('status',"post ".$newPosts->title ." eliminato correttamente");
+        
     }
 
     /**
@@ -96,9 +101,9 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $request->validate($this->ValidateData);
-         $data= $request->all();
-         $post->update($data);
-
+        $data= $request->all();
+        $post->update($data);
+        $data["img_post"]=Storage::disk('public')->put('images',$data["img_post"]);
         return redirect()
             ->route('admin.posts.index')
             ->with('status', "post'" . $post->title. "' aggiornato correttamente!");

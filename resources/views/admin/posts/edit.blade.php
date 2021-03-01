@@ -23,6 +23,10 @@
       </div>
         <textarea class="form-control"  name ="text" id="text" aria-label="scrivi testo">{{$post['text']}}</textarea>
       </div>
+      <div class="form-group">
+        <label for="img_post">Example file input</label>
+          <input type="file" name="img_post" id="img_post" class="form-control-file" accept="image/*" >
+      </div>
       <button type="submit" class="mt-3 btn btn-success">Submit</button>
   </form>
   <a href="{{route('admin.posts.index')}}" class="float-right mt-3 btn btn-primary">Tutti i post</a>
