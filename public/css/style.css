@@ -9,3 +9,11 @@ a.details {
 tbody#table_posts > tr {
   cursor: pointer;
 }
+
+.img_post {
+  height: 380px;
+}
+
+.card-deck div.card {
+  width: calc( 100% / 3);
+}

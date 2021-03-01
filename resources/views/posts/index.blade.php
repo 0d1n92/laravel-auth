@@ -4,7 +4,7 @@
   <div class="card-deck">
     @foreach ($posts as $post)
     <div class="card">
-      <img class="card-img-top" src="..." alt="Card image cap">
+      <img class=" img_post rounded mx-auto d-block" src="{{asset('storage/'.$post->img_post)}}" alt="Card image cap">
       <div class="card-body">
         <h2 class=" text-center  card-title">{{$post->getAttributes()["title"]}}</h2>
         <p class="card-text"><td>{{strlen($post->getAttributes()["text"]) > 200 ? substr($post->getAttributes()["text"],0,200)."..." : $post->getAttributes()["text"]}}</td></p>

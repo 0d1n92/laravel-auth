@@ -19,6 +19,7 @@
     </div>
     <div class="card-body">
       <h2 class="card-title">{{$post["title"]}}</h2>
+      <img src="{{asset('storage/'.$post->img_post)}}" class="img_post rounded mx-auto d-block" alt="...">
       <p class="card-text">{{$post["text"]}}</p>
       
     </div>
