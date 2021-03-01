@@ -11,10 +11,15 @@ class Post extends Model
     }
 
      protected $fillable=[
-        'text',
-        'title',
-        'slug',
         'user_id',
-      
+        'title',
+        'text',
+        'subtitle',
+        'pubblication_date',
+        'slug', 
       ];
+
+      public function InfoUser(){
+        return $this->belongsTo('App\InfoUser');
+      }
 }

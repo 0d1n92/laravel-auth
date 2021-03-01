@@ -50,11 +50,12 @@ class PostController extends Controller
 
         $data["slug"]=Str::slug($data["title"]);
         $data["user_id"]=Auth::id();
+        $data["pubblication_date"]= date('Y-m-d');
         
         $newPosts= new Post();
         $newPosts->fill($data);
         $newPosts->save();
-        return redirect()->route('admin.posts.index')->with('status',"post ".$newPosts->title ." aggiunto correttamente");;
+        return redirect()->route('admin.posts.index')->with('status',"post ".$newPosts->title ." eliminato correttamente");
     }
 
     /**
@@ -63,9 +64,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('admin.posts.show',compact('post'));
     }
 
     /**
@@ -74,9 +75,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('admin.posts.edit',compact('post'));
     }
 
     /**
@@ -86,9 +87,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $request->validate($this->ValidateData);
+         $data= $request->all();
+         $post->update($data);
+
+        return redirect()
+            ->route('admin.posts.index')
+            ->with('status', "post'" . $post->title. "' aggiornato correttamente!");
     }
 
     /**
@@ -99,6 +106,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $oldPost=$post->id; //memorizzo vecchio id
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('status',"post ". $post->id." eliminato correttamente"); //messaggio di conferma mettere codice in vista rifersi a doc.
         /* $post->delete();
         return resource()->route('admin.posts.index'); */
     }

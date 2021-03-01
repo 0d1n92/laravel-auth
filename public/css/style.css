@@ -1,0 +1,11 @@
+.btn_danger {
+  color: white;
+}
+
+a.details {
+  display: block;
+}
+
+tbody#table_posts > tr {
+  cursor: pointer;
+}
