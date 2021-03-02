@@ -56,7 +56,7 @@ class PostController extends Controller
         $data["user_id"]=Auth::id();
         $data["pubblication_date"]= date('Y-m-d');
         if (!empty($data["img_post"])){
-        $data["img_post"]=Storage::disk('public')->put('images',$data["img_post"]);
+          $data["img_post"]=Storage::disk('public')->put('images',$data["img_post"]);
         }
 
         $newPosts= new Post();
@@ -102,8 +102,20 @@ class PostController extends Controller
     {
         $request->validate($this->ValidateData);
         $data= $request->all();
+        
+        if (!empty($data["img_post"])){
+
+          if(!empty($post->img_post)) {
+
+            Storage::disk('public')->delete($post->img_post);
+                                             
+          }
+
+          $data["img_post"]=Storage::disk('public')->put('images', $data["img_post"]);
+        }
+
         $post->update($data);
-        $data["img_post"]=Storage::disk('public')->put('images',$data["img_post"]);
+
         return redirect()
             ->route('admin.posts.index')
             ->with('status', "post'" . $post->title. "' aggiornato correttamente!");

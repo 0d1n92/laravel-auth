@@ -10,7 +10,7 @@
           </ul>
       </div>
     @endif
-    <form  class="container" action="{{route('admin.posts.update',$post->id)}}" method="post">
+    <form  class="container" action="{{route('admin.posts.update',$post->id)}}" method="post" enctype="multipart/form-data">
       @csrf
       @method('PUT')
       <div class="form-group">
